@@ -108,7 +108,7 @@ objective_function <- function(x, model_params = c(13, -38, 18, 2), test_units =
   stress <- rep(s, times = n)
   lambda <- exp(B0 + B1*stress + B2*(stress^2))
   true_quantile <- exp(B0 + B1*design_stress + B2*(design_stress^2))*
-    (-log(1 - pquant))^(1/gamma)
+    (-log(pquant))^(1/gamma)
   
   est_quantile <- numeric(n_sim)
   lifetime <- cens <- numeric(test_units)
@@ -149,7 +149,7 @@ objective_function <- function(x, model_params = c(13, -38, 18, 2), test_units =
         if (is.finite(mle_gamma)) 
         {
           est_quantile[i] <- exp(mle_b0 + mle_b1*design_stress + 
-                      mle_b2*(design_stress^2))*(-log(1 - pquant))^(1/mle_gamma)
+                      mle_b2*(design_stress^2))*(-log(pquant))^(1/mle_gamma)
           break
         }
       }
